@@ -26,22 +26,120 @@ Otherwise, print "NO".
 
 
 ## Algorithm
-1. 
-2. 
-3. 
-4.  
-5.   
+1.Input:
+
+Read the number of towers n, available channels m, and number of connections e.
+
+Read each connection pair (u, v) and build an adjacency list for the graph.
+
+2.Initialization:
+
+Create an integer array color[n] initialized with 0 (meaning no channel assigned).
+
+Each tower (node) can be assigned a color (channel) from 1 to m.
+
+3.Safety Check (isSafe):
+
+Before assigning a channel to a tower, check all its adjacent towers.
+
+If any adjacent tower already uses the same channel, assignment is not safe.
+
+4.Backtracking Solution (solve):
+
+Try assigning each channel (1 to m) to the current tower.
+
+If safe, recursively assign channels to the next tower.
+
+If no valid channel exists, backtrack and try another combination.
+
+5.Output:
+
+If all towers can be assigned channels without conflict → print "YES".
+
+Otherwise → print "NO".   
 
 ## Program:
 ```
 /*
-Program to implement Reverse a String
-Developed by: 
-Register Number:  
+Developed by: Manisha selvakumari.S.S.
+Register Number:212223220055 
 */
+import java.util.*;
+
+public class prog {
+
+    static int[] assignPhases(List<List<Integer>> adj, int N) {
+
+        int[] color = new int[N];
+        Arrays.fill(color, -1);
+
+        color[0] = 0;
+
+        boolean[] available = new boolean[N];
+
+        for (int u = 1; u < N; u++) {
+
+            Arrays.fill(available, true);
+
+            for (int neighbor : adj.get(u)) {
+                if (color[neighbor] != -1) {
+                    available[color[neighbor]] = false;
+                }
+            }
+
+            int phase;
+            for (phase = 0; phase < N; phase++) {
+                if (available[phase]) {
+                    break;
+                }
+            }
+
+            color[u] = phase;
+        }
+
+        return color;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt();
+        int M = sc.nextInt();
+
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < M; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+
+        int[] result = assignPhases(adj, N);
+
+        int maxPhase = 0;
+        for (int color : result) {
+            maxPhase = Math.max(maxPhase, color);
+        }
+
+        System.out.println(maxPhase + 1);
+
+        for (int i = 0; i < N; i++) {
+            System.out.println(i + " -> " + result[i]);
+        }
+
+        sc.close();
+    }
+}
 ```
 
 ## Output:
+
+<img width="1170" height="491" alt="image" src="https://github.com/user-attachments/assets/c787a9ca-727f-40b9-8a0e-b06f3458d311" />
 
 
 

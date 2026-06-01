@@ -26,23 +26,99 @@ A valid flower assignment always exists
 <img width="177" height="292" alt="image" src="https://github.com/user-attachments/assets/36aa40cb-1cdd-4746-b1a6-fc51ce6e96aa" />
 
 ## Algorithm
-1. 
-2. 
-3. 
-4.  
-5.   
+1.Input:
+
+Read the number of gardens n and the number of paths m.
+
+Read each path pair (u, v) that connects two gardens.
+
+2.Graph Construction:
+
+Create an adjacency list for all gardens.
+
+For every path (u, v), add each garden to the other's adjacency list.
+
+3.Initialization:
+
+Create an integer array flowers[n] to store the flower type (1–4) assigned to each garden.
+
+Each garden can have one of four flower types.
+
+4.Assignment Logic:
+
+For each garden i, check all adjacent gardens.
+
+Mark the flower types already used by its neighbors and assign the first available flower type to garden i.
+
+5.Output:
+
+Print the final flower type assigned to each garden in order.  
 
 ## Program:
 ```
 /*
-Program to implement Reverse a String
-Developed by: 
-Register Number:  
+Developed by: Manisha selvakumari.S.S.
+Register Number: 212223220055
 */
+import java.util.*;
+
+public class TeacherAssignment {
+
+    public static int[] assignTeachers(int n, List<List<Integer>> graph) {
+
+        int[] color = new int[n]; 
+
+        for (int u = 0; u < n; u++) {
+
+            boolean[] used = new boolean[n + 1];
+
+            for (int v : graph.get(u)) {
+                if (color[v] != 0) {
+                    used[color[v]] = true;
+                }
+            }
+
+            for (int c = 1; c <= n; c++) {
+                if (!used[c]) {
+                    color[u] = c;
+                    break;
+                }
+            }
+        }
+
+        return color;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt(); 
+        int m = sc.nextInt(); 
+
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+
+        int[] assigned = assignTeachers(n, graph);
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Lab " + i + ": Teacher " + assigned[i]);
+        }
+    }
+}
 ```
 
 ## Output:
 
+<img width="1175" height="531" alt="image" src="https://github.com/user-attachments/assets/18cd9bd3-8312-44be-9928-d63e71f29f29" />
 
 
 ## Result:

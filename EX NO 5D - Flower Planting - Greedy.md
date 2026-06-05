@@ -1,6 +1,6 @@
 
 # EX 5D Flower Planting.
-## DATE:
+## DATE: 20/05/26
 ## AIM:
 To write a Java program to for given constraints.
 You are given n gardens, labelled from 1 to n.
